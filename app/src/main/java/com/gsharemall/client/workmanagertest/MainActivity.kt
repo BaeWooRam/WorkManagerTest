@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
 import com.gsharemall.client.workmanagertest.TestService.Companion.instance
@@ -14,7 +15,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        startWorkManager()
+        findViewById<TextView>(R.id.text).setOnClickListener {
+            val intent = Intent(this, TestActivity::class.java)
+            startActivity(intent)
+        }
+
+        startPushService()
     }
 
     private fun startWorkManager(){
@@ -34,18 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startPushService(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (instance != null) {
-                instance!!.stopSelf()
-            }
-            val intent = Intent(this, TestService::class.java)
-            startForegroundService(intent)
-        } else {
-            if (instance != null) {
-                instance!!.stopSelf()
-            }
-            val intent = Intent(this, TestService::class.java)
-            startService(intent)
-        }
+        val intent = Intent(this, TestService::class.java)
+        startService(intent)
     }
 }
