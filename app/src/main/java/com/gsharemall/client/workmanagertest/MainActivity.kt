@@ -1,19 +1,28 @@
 package com.gsharemall.client.workmanagertest
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.work.*
-import com.gsharemall.client.workmanagertest.TestService.Companion.instance
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StreamDownloadTask
+import java.io.InputStream
 import java.util.concurrent.TimeUnit
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val storage = FirebaseStorage.getInstance()
+        storage.getReference("")
+            .storage
+            .reference
+            .child("")
+            .getStream()
 
         findViewById<TextView>(R.id.text).setOnClickListener {
             val intent = Intent(this, TestActivity::class.java)
